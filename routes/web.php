@@ -12,7 +12,9 @@ use App\Http\Controllers\Frontend\NewsLetterController;
 use App\Http\Controllers\Frontend\PostController;
 use App\Http\Controllers\Frontend\SearchController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -31,9 +33,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect("/","home");
+Broadcast::routes(['middleware' => ['auth']]);
 
 route::group(['as'=> 'frontend.'], function () {
-    Route::get('/home', [HomeController::class,'index'])->name('index');
+    Route::get('/home', [HomeController::class,'index'])->middleware(['auth:web','verified'])->name('index');
     Route::post('news-latter', [NewsLetterController::class,'store'])->name('news.letter');
     Route::get('category/{slug}', [CategoryController::class,'__invoke'])->name('category.posts');
     //Post Routes

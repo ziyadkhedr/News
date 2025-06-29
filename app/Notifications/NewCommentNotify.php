@@ -3,12 +3,12 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewCommentNotify extends Notification
-{
+class NewCommentNotify extends Notification implements ShouldBroadcast{
     use Queueable;
 
     /**
@@ -28,7 +28,7 @@ class NewCommentNotify extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -63,4 +63,23 @@ class NewCommentNotify extends Notification
             'link'=> route('frontend.post.show', [$this->post->slug]),
         ];
     }
+    public function toBroadcast(object $notifiable)
+    {
+        return new BroadcastMessage([
+            'user_id'=> $this->comment->user_id,
+            'username'=>auth()->user()->name,
+            'post_title'=> $this->post->title,
+            'comment'=> $this->comment->comment,
+            'link'=> route('frontend.post.show', [$this->post->slug]),
+        ]);
+    }
+    public function broadcastType(): string
+{
+    return 'NewCommentNotify';
+}
+    public function DatabaseType(object $notifiable): string
+{
+    return 'NewCommentNotify';
+}
+
 }

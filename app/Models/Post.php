@@ -15,6 +15,7 @@ class Post extends Model
     use HasFactory,Sluggable;
     protected $fillable=['title','description','slug','num_of_views','comment_able','category_id','user_id','status'];
 
+    ############################### Begain Relation #######################################
     public function category(){
         return $this->belongsTo(Category::class,'category_id');
     }
@@ -27,6 +28,7 @@ class Post extends Model
     public function images(){
         return $this->hasMany(Image::class,'post_id');
     }
+    ################################# End Relation #######################################
 
     public function sluggable(): array
     {

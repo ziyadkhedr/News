@@ -51,6 +51,19 @@
   @include('layouts.frontend.footer')
 
 
+  <script>
+    @if (auth()->check())
+    const id = {{ auth()->user()->id  }};
+  @else
+    const id = null;
+  @endif
+  </script>
+
+
+  {{-- // const id = "{{ auth()->user()->id }}"; --}}
+
+  <script src="{{ asset('build/assets/app-Cz1THiG4.js') }}"></script>
+
   <!-- Back to Top -->
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 

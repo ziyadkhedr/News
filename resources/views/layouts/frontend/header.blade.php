@@ -90,22 +90,29 @@
           <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-bell"></i>
-            <span class="badge badge-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+            @if (auth()->check())
+        <span id="count-notification" class="badge badge-danger">
+          {{ auth()->user()->unreadNotifications->count() }}
+        </span>
+      @endif
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
             <h6 class="dropdown-header">Notifications <a class='dropdown-header'
                 href="{{ route('frontend.dashboard.notification.markRead') }}"> Mark All As Read</a></h6>
+            @if (auth()->check())
             @forelse (auth()->user()->unreadNotifications as $notify)
+          <div id="push-notification">
+            <div class="dropdown-item d-flex justify-content-between align-items-center ">
+            <span>Post Comment:
+            {{ substr($notify->data['post_title'], 0, 9) }}...</span>
+            <a href="{{ $notify->data['link'] }}?notify={{ $notify->id }}"><i class="fa fa-eye"></i></a>
+            </div>
+          </div>
+          @empty
 
-        <div class="dropdown-item d-flex justify-content-between align-items-center ">
-          <span>Post Comment:
-          {{ substr($notify->data['post_title'], 0, 9) }}...</span>
-          <a href="{{ $notify->data['link'] }}?notify={{ $notify->id }}"><i class="fa fa-eye"></i></a>
-        </div>
-      @empty
-
-        <div class="dropdown-item text-center">No notifications</div>
-      @endforelse
+          <div class="dropdown-item text-center">No notifications</div>
+          @endforelse
+      @endif
 
 
           </div>

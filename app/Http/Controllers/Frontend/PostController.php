@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\User;
 use App\Notifications\NewCommentNotify;
 use Illuminate\Http\Request;
 
@@ -43,8 +44,12 @@ class PostController extends Controller
         ]);
 
         $post=Post::findOrFail($request->post_id);
-        $post->user->notify(new NewCommentNotify($comment,$post));
 
+        
+        if (auth()->id() != $post->user_id) {
+            $post->user->notify(new NewCommentNotify($comment, $post));
+        }
+        
         $comment->load('user');
         if(!$comment){
             return response()->json([
