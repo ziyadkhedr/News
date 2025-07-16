@@ -76,7 +76,7 @@
                                 <div class="alert alert-info">unable to comment</div>
                             @endif
                         @else
-                            <div class="alert alert-warning">يجب تسجيل الدخول قبل كتابة تعليق.</div>
+                            <div class="alert alert-warning">You have to login to write a Comment.</div>
                         @endif
                         <div id="errorMsg" class="alert alert-danger" style="display: none;">
                             {{-- display error --}}
@@ -251,12 +251,12 @@
                     $('.comments').empty();
                     $.each($data, function (key, comment) {
                         $('.comments').append(` <div class="comment">
-                                                                                                                                                                                                                        <img src="${comment.user.image}" alt="User Image" class="comment-img" />
-                                                                                                                                                                                                                        <div class="comment-content">
-                                                                                                                                                                                                                            <span class="username">${comment.user.name}</span>
-                                                                                                                                                                                                                            <p class="comment-text"> ${comment.comment} </p>
-                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                    </div>`)
+                                                                                                                                                                                                                                <img src="${comment.user.image}" alt="User Image" class="comment-img" />
+                                                                                                                                                                                                                                <div class="comment-content">
+                                                                                                                                                                                                                                    <span class="username">${comment.user.name}</span>
+                                                                                                                                                                                                                                    <p class="comment-text"> ${comment.comment} </p>
+                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                            </div>`)
 
                         $('#showMoreBtn').hide();
                         $('#showLessBtn').show();
@@ -284,14 +284,14 @@
 
                 $.each(visibleComments, function (index, comment) {
                     $('.comments').append(`
-                                                                                                                                                                                                                                    <div class="comment">
-                                                                                                                                                                                                                                        <img src="${comment.user.image}" alt="User Image" class="comment-img" />
-                                                                                                                                                                                                                                        <div class="comment-content">
-                                                                                                                                                                                                                                            <span class="username">${comment.user.name}</span>
-                                                                                                                                                                                                                                            <p class="comment-text">${comment.comment}</p>
-                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                `);
+                                                                                                                                                                                                                                            <div class="comment">
+                                                                                                                                                                                                                                                <img src="${comment.user.image}" alt="User Image" class="comment-img" />
+                                                                                                                                                                                                                                                <div class="comment-content">
+                                                                                                                                                                                                                                                    <span class="username">${comment.user.name}</span>
+                                                                                                                                                                                                                                                    <p class="comment-text">${comment.comment}</p>
+                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                        `);
                 });
             }
 
@@ -337,12 +337,12 @@
                 success: function (data) {
                     $('#errorMsg').hide();
                     $('.comments').prepend(`<div class="comment">
-                                                                                                                                                                            <img src="${data.comment.user.image}" alt="User Image" class="comment-img" />
-                                                                                                                                                                            <div class="comment-content">
-                                                                                                                                                                                <span class="username">${data.comment.user.name}</span>
-                                                                                                                                                                                <p class="comment-text">${data.comment.comment}</p>
-                                                                                                                                                                            </div>
-                                                                                                                                                                        </div>`);
+                                                                                                                                                                                    <img src="${data.comment.user.image}" alt="User Image" class="comment-img" />
+                                                                                                                                                                                    <div class="comment-content">
+                                                                                                                                                                                        <span class="username">${data.comment.user.name}</span>
+                                                                                                                                                                                        <p class="comment-text">${data.comment.comment}</p>
+                                                                                                                                                                                    </div>
+                                                                                                                                                                                </div>`);
                     // تفريغ الفورم
                     $('#commentForm')[0].reset();
                 },

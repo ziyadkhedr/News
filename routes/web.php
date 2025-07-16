@@ -36,7 +36,7 @@ Route::redirect("/","home");
 Broadcast::routes(['middleware' => ['auth']]);
 
 route::group(['as'=> 'frontend.'], function () {
-    Route::get('/home', [HomeController::class,'index'])->middleware(['auth:web','verified'])->name('index');
+    Route::get('/home', [HomeController::class,'index'])->name('index');
     Route::post('news-latter', [NewsLetterController::class,'store'])->name('news.letter');
     Route::get('category/{slug}', [CategoryController::class,'__invoke'])->name('category.posts');
     //Post Routes

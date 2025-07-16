@@ -25,7 +25,7 @@ class ViewServiceProvider extends ServiceProvider
     {   //share related sites
         $relatedsites=Relatedsite::select('name','url')->get();
             //share categories
-            $categories=Category::select('id','name','slug')->get();
+            $categories=Category::select('id','name','slug')->activecategory()->get();
             //store last posts in cache 
             
 

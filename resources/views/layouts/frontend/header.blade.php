@@ -81,9 +81,11 @@
 
             </div>
           </div>
-          <a href="{{ route('frontend.dashboard.profile') }}" class="nav-item nav-link">Dashboard</a>
           <a href="{{ route('frontend.contact.index') }}"
             class="nav-item nav-link {{ request()->routeIs('frontend.contact.index') ? 'active' : '' }}">Contact Us</a>
+          @auth('web')
+        <a href="{{ route('frontend.dashboard.profile') }}" class="nav-item nav-link">ACCOUNT</a>
+      @endauth
         </div>
         <div class="social ml-auto">
           <!-- Notification Dropdown -->
@@ -99,7 +101,8 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
             <h6 class="dropdown-header">Notifications <a class='dropdown-header'
                 href="{{ route('frontend.dashboard.notification.markRead') }}"> Mark All As Read</a></h6>
-            @if (auth()->check())
+
+            @auth('web')
             @forelse (auth()->user()->unreadNotifications as $notify)
           <div id="push-notification">
             <div class="dropdown-item d-flex justify-content-between align-items-center ">
@@ -112,7 +115,7 @@
 
           <div class="dropdown-item text-center">No notifications</div>
           @endforelse
-      @endif
+      @endauth
 
 
           </div>
